@@ -5,7 +5,7 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const InputRef: typeof import('./src/composables/index')['InputRef']
+  const InputRef: typeof import('./src/composables/variable')['InputRef']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -46,8 +46,8 @@ declare global {
   const handleInputConfirm: typeof import('./src/composables/index')['handleInputConfirm']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
-  const inputValue: typeof import('./src/composables/index')['inputValue']
-  const inputVisible: typeof import('./src/composables/index')['inputVisible']
+  const inputValue: typeof import('./src/composables/variable')['inputValue']
+  const inputVisible: typeof import('./src/composables/variable')['inputVisible']
   const isDark: typeof import('./src/composables/index')['isDark']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isProxy: typeof import('vue')['isProxy']
@@ -105,6 +105,7 @@ declare global {
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
   const showInput: typeof import('./src/composables/index')['showInput']
+  const sideMenu: typeof import('./src/composables/variable')['sideMenu']
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -347,6 +348,7 @@ declare module 'vue' {
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
+    readonly inputVisible: UnwrapRef<typeof import('./src/composables/variable')['inputVisible']>
     readonly isDark: UnwrapRef<typeof import('./src/composables/index')['isDark']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
@@ -631,6 +633,7 @@ declare module '@vue/runtime-core' {
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
+    readonly inputVisible: UnwrapRef<typeof import('./src/composables/variable')['inputVisible']>
     readonly isDark: UnwrapRef<typeof import('./src/composables/index')['isDark']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>

@@ -14,29 +14,36 @@ function handleChangeTask(index: number) {
   currentTodoTaskIndex.value = index
   taskList.value = todoTasks.value[index]
 }
+function handleDeleteTasks(index: number) {
+  todoTasks.value.splice(index, 1)
+  if (currentTodoTaskIndex.value !== 0 && index === currentTodoTaskIndex.value)
+    currentTodoTaskIndex.value -= 1
+}
 </script>
 
 <template>
   <div>
     <el-input
-      v-model="newListTitle" placeholder="新列表名" size="small" @keyup.enter="handleInputConfirm"
+      v-model="newListTitle" placeholder="新建分组" size="small" @keyup.enter="handleInputConfirm"
       @blur="handleInputConfirm"
     >
       <template #prefix>
-        <i display="inline-block" i-mdi-list-box-outline h-5 w-6 />
+        <i display="inline-block" i-mdi-plus h-5 w-6 />
       </template>
     </el-input>
     <el-divider my-2 />
     <div v-for="item, index in todoTasks" :key="index" pt-1>
-      <div>
+      <div
+        flex="~ row" h-7 w-full items-center b-1 b-gray-4 b-rd-5px p-1 dark:b-gray-6 justify="between"
+        :class="{ active: currentTodoTaskIndex === index }"
+      >
         <button
-          flex="~ row" h-6 w-full items-center b-1 btn dark:b="#4c4d4f" b="#dcdfe6"
-          :class="{ active: currentTodoTaskIndex === index }"
+          flex="1" text="left" pl-1
           @click="handleChangeTask(index)"
         >
-          <i display="inline-block" i-mdi-list-box-outline h-5 w-6 />
           <span>{{ item.title }}</span>
         </button>
+        <i i-mdi-delete-alert-outline h-5 w-6 text-red-400 @click="handleDeleteTasks(index)" />
       </div>
     </div>
   </div>
