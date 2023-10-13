@@ -6,6 +6,8 @@ export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const InputRef: typeof import('./src/composables/variable')['InputRef']
+  const TODO_TASKS_SIDEBAR_STORAGE: typeof import('./src/composables/variable')['TODO_TASKS_SIDEBAR_STORAGE']
+  const TODO_TASK_LIST_STORAGE: typeof import('./src/composables/variable')['TODO_TASK_LIST_STORAGE']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -26,6 +28,7 @@ declare global {
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
+  const currentTodoId: typeof import('./src/composables/variable')['currentTodoId']
   const currentTodoTaskIndex: typeof import('./src/composables/variable')['currentTodoTaskIndex']
   const currentTodoTasks: typeof import('./src/composables/variable')['currentTodoTasks']
   const customRef: typeof import('vue')['customRef']
@@ -118,7 +121,10 @@ declare global {
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
   const toValue: typeof import('vue')['toValue']
+  const todoTaskList: typeof import('./src/composables/variable')['todoTaskList']
   const todoTasks: typeof import('./src/composables/variable')['todoTasks']
+  const todoTasksSidebar: typeof import('./src/composables/variable')['todoTasksSidebar']
+  const todoTasksSidebarStorage: typeof import('./src/composables/variable')['todoTasksSidebarStorage']
   const toggleDark: typeof import('./src/composables/index')['toggleDark']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
@@ -316,6 +322,8 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly TODO_TASKS_SIDEBAR_STORAGE: UnwrapRef<typeof import('./src/composables/variable')['TODO_TASKS_SIDEBAR_STORAGE']>
+    readonly TODO_TASK_LIST_STORAGE: UnwrapRef<typeof import('./src/composables/variable')['TODO_TASK_LIST_STORAGE']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -334,7 +342,7 @@ declare module 'vue' {
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
-    readonly currentTodoTaskIndex: UnwrapRef<typeof import('./src/composables/variable')['currentTodoTaskIndex']>
+    readonly currentTodoId: UnwrapRef<typeof import('./src/composables/variable')['currentTodoId']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
@@ -348,7 +356,6 @@ declare module 'vue' {
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
-    readonly inputVisible: UnwrapRef<typeof import('./src/composables/variable')['inputVisible']>
     readonly isDark: UnwrapRef<typeof import('./src/composables/index')['isDark']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
@@ -400,7 +407,6 @@ declare module 'vue' {
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
-    readonly taskList: UnwrapRef<typeof import('./src/composables/variable')['taskList']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
@@ -409,7 +415,8 @@ declare module 'vue' {
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
-    readonly todoTasks: UnwrapRef<typeof import('./src/composables/variable')['todoTasks']>
+    readonly todoTaskList: UnwrapRef<typeof import('./src/composables/variable')['todoTaskList']>
+    readonly todoTasksSidebar: UnwrapRef<typeof import('./src/composables/variable')['todoTasksSidebar']>
     readonly toggleDark: UnwrapRef<typeof import('./src/composables/index')['toggleDark']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
@@ -601,6 +608,8 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly TODO_TASKS_SIDEBAR_STORAGE: UnwrapRef<typeof import('./src/composables/variable')['TODO_TASKS_SIDEBAR_STORAGE']>
+    readonly TODO_TASK_LIST_STORAGE: UnwrapRef<typeof import('./src/composables/variable')['TODO_TASK_LIST_STORAGE']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -619,7 +628,7 @@ declare module '@vue/runtime-core' {
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
-    readonly currentTodoTaskIndex: UnwrapRef<typeof import('./src/composables/variable')['currentTodoTaskIndex']>
+    readonly currentTodoId: UnwrapRef<typeof import('./src/composables/variable')['currentTodoId']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
@@ -633,7 +642,6 @@ declare module '@vue/runtime-core' {
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
-    readonly inputVisible: UnwrapRef<typeof import('./src/composables/variable')['inputVisible']>
     readonly isDark: UnwrapRef<typeof import('./src/composables/index')['isDark']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
@@ -685,7 +693,6 @@ declare module '@vue/runtime-core' {
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
-    readonly taskList: UnwrapRef<typeof import('./src/composables/variable')['taskList']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
@@ -694,7 +701,8 @@ declare module '@vue/runtime-core' {
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
-    readonly todoTasks: UnwrapRef<typeof import('./src/composables/variable')['todoTasks']>
+    readonly todoTaskList: UnwrapRef<typeof import('./src/composables/variable')['todoTaskList']>
+    readonly todoTasksSidebar: UnwrapRef<typeof import('./src/composables/variable')['todoTasksSidebar']>
     readonly toggleDark: UnwrapRef<typeof import('./src/composables/index')['toggleDark']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
