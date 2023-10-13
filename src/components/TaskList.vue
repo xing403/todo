@@ -13,6 +13,10 @@ const todoTask = ref<Tasks>(todoTaskList.value.find(item => item.sidebarId === c
   done: 0,
 })
 function handleTaskConfirm() {
+  if (!todoTasksSidebar.value.find(({ id }) => id === currentTodoId.value)) {
+    ElMessage.warning('请先创建分组')
+    return
+  }
   if (taskContent.value.trim() === '') {
     ElMessage.warning('内容不能为空')
     return
