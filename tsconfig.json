@@ -17,6 +17,7 @@
     "types": [
       "vite/client",
       "vite-plugin-pages/client",
+      "element-plus/client",
       "unplugin-vue-macros/macros-global"
     ],
     "paths": {
