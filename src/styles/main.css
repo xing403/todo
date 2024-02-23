@@ -4,9 +4,16 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 1em;
 }
 
 html.dark {
   background: #121212;
+}
+
+.el-space {
+  height: calc(100% - 60px) !important;
+}
+
+.el-space__item {
+  height: calc(100% - 10px) !important;
 }

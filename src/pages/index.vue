@@ -1,17 +1,25 @@
 <script setup lang="ts">
+import { dayjs } from 'element-plus'
+import { todoTaskList } from '~/composables'
 
+function handleAddTaskList() {
+  todoTaskList.value.push({
+    id: dayjs().valueOf(),
+    title: 'default',
+    type: 1,
+    list: [],
+  })
+}
 </script>
 
 <template>
-  <div flex="~ row" class="common-layout" h-full min-w-md py-2>
-    <div class="side hidden-xs-only" w-260px b-r-1 dark:b-r="#4c4d4f" b-r="#dcdfe6" px-2>
-      <Side />
-    </div>
-
-    <div w-full>
-      <Header />
-      <el-divider my-1 />
-      <TaskList />
-    </div>
-  </div>
+  <Header />
+  <el-space alignment="flex-start" w-full overflow="auto">
+    <task-list v-for="task in todoTaskList" :key="task.id" :list="task" />
+    <el-button @click="handleAddTaskList">
+      <template #icon>
+        <svg-icon name="carbon:bookmark-add" />
+      </template>
+    </el-button>
+  </el-space>
 </template>
