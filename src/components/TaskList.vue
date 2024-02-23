@@ -20,9 +20,11 @@ function handleListCommand(cmd: string) {
   <el-card flex="~ col" w-300px body-class="card-body  h-full">
     <template #header>
       <div flex="~ row " justify="between">
-        <div class="card-header" text-2xl font-600>
-          <span>{{ task.title }}</span>
-        </div>
+        <el-badge :hidden="task.list.length === 0" :value="task.list.length" type="info">
+          <div px-2 text-2xl font-600>
+            <span>{{ task.title }}</span>
+          </div>
+        </el-badge>
         <el-dropdown @command="handleListCommand">
           <el-button>
             <template #icon>
@@ -40,7 +42,7 @@ function handleListCommand(cmd: string) {
       </div>
     </template>
     <div h-full>
-      <task-item v-for="t in task.list" :key="t.id" :task="t" />
+      <task-item v-for=" t in task.list " :key="t.id" :task="t" />
     </div>
     <template #footer>
       <add-task />

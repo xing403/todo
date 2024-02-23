@@ -48,4 +48,12 @@ export function removeTaskList(listId: number) {
   }
 
   todoTaskList.value.splice(todoTaskList.value.findIndex(item => item.id === listId), 1)
+  if (todoTaskList.value.length === 0) {
+    createTaskList({
+      id: useCurrentTimestamp(),
+      title: '系统',
+      list: taskList.list,
+      type: 0,
+    }, true)
+  }
 }
