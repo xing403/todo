@@ -21,11 +21,11 @@ function handleListCommand(cmd: string) {
       <div>{{ task.title }}</div>
     </div>
     <el-dropdown @command="handleListCommand">
-      <el-button>
+      <el-link>
         <template #icon>
-          <svg-icon name="carbon:overflow-menu-horizontal" />
+          <svg-icon name="carbon:overflow-menu-horizontal" size="18" />
         </template>
-      </el-button>
+      </el-link>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item command="delete-task-item">
