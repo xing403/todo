@@ -5,6 +5,21 @@ import { useCurrentTimestamp } from '~/composables/transform'
 export function addTaskItem(listId: number, task: TaskType) {
   todoTaskList.value.find(item => item.id === listId)?.list.push(task)
 }
+
+export function editTaskItem(listId: number, taskId: number, task: TaskType) {
+  const taskList = todoTaskList.value.find(item => item.id === listId)
+  if (!taskList) {
+    ElMessage.error('任务列表不存在')
+    return
+  }
+  const taskItem = taskList.list.find(item => item.id === taskId)
+  if (!taskItem) {
+    ElMessage.error('任务项不存在')
+    return
+  }
+
+  taskItem.title = task.title
+}
 export function removeTaskItem(listId: number, taskId: number) {
   const taskList = todoTaskList.value.find(item => item.id === listId)
   if (!taskList) {

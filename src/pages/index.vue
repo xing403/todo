@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { createTaskList } from '~/api/task'
 import { todoTaskList } from '~/composables'
 import { useCurrentTimestamp } from '~/composables/transform'
 
@@ -17,7 +18,7 @@ const rules = {
 function handleAddTaskList() {
   formRef.value && formRef.value.validate((valid: boolean) => {
     if (valid) {
-      todoTaskList.value.push({ ...form.value })
+      createTaskList({ ...form.value })
       resetForm()
       additionDialog.value = false
     }
@@ -26,9 +27,11 @@ function handleAddTaskList() {
 function openAdditionDialog() {
   additionDialog.value = true
 }
-function resetForm() {
+function resetForm(done?: () => void) {
   formRef.value && formRef.value.resetFields()
   form.value.id = useCurrentTimestamp()
+  if (done)
+    done()
 }
 </script>
 

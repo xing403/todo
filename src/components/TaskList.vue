@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElMessageBox } from 'element-plus'
 import { removeTaskList } from '~/api/task'
 import { todoTaskList } from '~/composables'
 
@@ -24,13 +25,25 @@ const task = toRef(props.list)
 function handleListCommand(cmd: string) {
   switch (cmd) {
     case 'delete-list':
-      removeTaskList(task.value.id)
+      handleRemoveTaskList()
       break
     case 'edit-list':
       editDialog.value = true
       break
   }
 }
+function handleRemoveTaskList() {
+  ElMessageBox.confirm(
+    '确定删除这个列表吗',
+    '警告', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }).then(() => {
+    removeTaskList(task.value.id)
+  }).catch(() => {})
+}
+
 function handleEditTaskList() {
   formRef.value && formRef.value.validate((valid: boolean) => {
     if (valid) {
@@ -69,11 +82,11 @@ function resetForm(done?: () => void) {
           </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="delete-list">
-                <span text-red-5 font-500>Delete List</span>
-              </el-dropdown-item>
               <el-dropdown-item command="edit-list">
                 <span text-orange-5 font-500>Edit List</span>
+              </el-dropdown-item>
+              <el-dropdown-item divided command="delete-list">
+                <span text-red-5 font-500>Delete List</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
