@@ -153,7 +153,7 @@ function handleEditTaskItem() {
     </el-form>
 
     <template #footer>
-      <div class="dialog-footer">
+      <div class="dialog-footer" items-center gap-1>
         <el-button @click="resetForm()">
           取消
         </el-button>
