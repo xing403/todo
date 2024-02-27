@@ -10,6 +10,7 @@ function handleInputConfirm() {
     addTaskItem(taskListId, {
       id: useCurrentTimestamp(),
       title: taskTitle.value,
+      status: false,
     })
   }
 

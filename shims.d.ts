@@ -14,7 +14,7 @@ interface BaseType {
 }
 
 interface TaskType extends BaseType {
-
+  status: boolean
 }
 
 interface TaskListType extends BaseType {

@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { ElMessageBox } from 'element-plus'
-import { removeTaskList } from '~/api/task'
+import { editTaskItem, removeTaskList } from '~/api/task'
+import { sortTaskItem } from '~/utils/task-tool'
 
 const props = defineProps<{
   list: TaskListType
 }>()
 const editDialog = ref(false)
+const editTaskDialog = ref(false)
+const taskForm = ref<TaskType>({
+  id: 0,
+  title: '',
+  status: false,
+  color: '',
+  type: 'normal',
+  list: [],
+})
 const formRef = ref()
-
+const taskFormRef = ref()
 const form = ref<TaskListType>({
   id: props.list.id,
   title: props.list.title,
@@ -40,7 +50,7 @@ function handleRemoveTaskList() {
       type: 'warning',
     }).then(() => {
     removeTaskList(task.value.id)
-  }).catch(() => {})
+  }).catch(() => { })
 }
 
 function handleEditTaskList() {
@@ -60,6 +70,23 @@ function resetForm(done?: () => void) {
   editDialog.value = false
   if (done)
     done()
+}
+
+function handleGetCurrentEditTask(id: number) {
+  const current = task.value.list.find((item: TaskType) => item.id === id)
+  if (current) {
+    taskForm.value = { ...current }
+    editTaskDialog.value = true
+  }
+}
+
+function handleEditTaskItem() {
+  taskFormRef.value && taskFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      editTaskItem(task.value.id, taskForm.value.id, { ...taskForm.value })
+      editTaskDialog.value = false
+    }
+  })
 }
 </script>
 
@@ -92,13 +119,28 @@ function resetForm(done?: () => void) {
         </el-dropdown>
       </div>
     </template>
-    <div h-full>
-      <task-item v-for=" t in task.list " :key="t.id" :task="t" />
-    </div>
+    <TransitionGroup tag="div" name="fade" class="h-full">
+      <task-item v-for=" t in sortTaskItem(task.list) " :key="t.id" :task="t" @edit-task="handleGetCurrentEditTask" />
+    </TransitionGroup>
     <template #footer>
       <add-task />
     </template>
   </el-card>
+
+  <el-dialog v-model="editTaskDialog" title="编辑任务" width="300px" center>
+    <el-form ref="taskFormRef" :model="taskForm" :rules="rules">
+      <el-form-item prop="title">
+        <el-input v-model="taskForm.title" />
+      </el-form-item>
+    </el-form>
+
+    <template #footer>
+      <span>
+        <el-button @click="editTaskDialog = false">取消</el-button>
+        <el-button type="primary" @click="handleEditTaskItem">确认</el-button>
+      </span>
+    </template>
+  </el-dialog>
 
   <el-dialog v-model="editDialog" title="编辑列表" width="350" color :before-close="resetForm">
     <el-form ref="formRef" :model="form" :rules="rules">

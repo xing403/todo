@@ -3,7 +3,14 @@ import { ElMessage } from 'element-plus'
 export function addTaskItem(listId: number, task: TaskType) {
   todoTaskList.value.find(item => item.id === listId)?.list.push(task)
 }
-
+export function editTaskItemStatus(listId: number, taskId: number, status: boolean) {
+  const list = todoTaskList.value.find(item => item.id === listId)
+  if (list) {
+    const task = list.list.find(item => item.id === taskId)
+    if (task)
+      task.status = status
+  }
+}
 export function editTaskItem(listId: number, taskId: number, task: TaskType) {
   const taskList = todoTaskList.value.find(item => item.id === listId)
   if (!taskList) {
