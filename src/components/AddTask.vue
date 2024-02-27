@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { addTaskItem } from '~/api/task'
-import { useCurrentTimestamp } from '~/composables/transform'
 
 const taskListId = inject<number>('listId', 0)
 const taskTitle = ref('')

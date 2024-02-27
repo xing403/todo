@@ -10,6 +10,7 @@ export default function createAutoImport() {
     ],
     dirs: [
       './src/utils/**',
+      './src/composables/**',
     ],
   })
 }

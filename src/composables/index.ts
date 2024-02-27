@@ -1,5 +1,3 @@
-import { useCurrentTimestamp } from './transform'
-
 export const TODO_TASK_LIST_STORAGE = useLocalStorage<TaskListType[]>('todo-data-list', [{
   id: useCurrentTimestamp(),
   title: 'Default',

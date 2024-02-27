@@ -11,9 +11,9 @@ html.dark {
 }
 
 .el-space {
-  height: calc(100% - 60px) !important;
+  height: calc(100% - 60px);
 }
 
 .el-space__item {
-  height: calc(100% - 10px) !important;
+  height: calc(100% - 10px);
 }

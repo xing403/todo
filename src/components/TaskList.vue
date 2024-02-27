@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ElMessageBox } from 'element-plus'
 import { removeTaskList } from '~/api/task'
-import { todoTaskList } from '~/composables'
 
 const props = defineProps<{
   list: TaskListType
