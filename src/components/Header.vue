@@ -8,7 +8,7 @@ const toggleDark = useToggle(isDark)
 </script>
 
 <template>
-  <el-header mb-1 border-b-1>
+  <el-header mb-1 border-b-1 dark:border-hex-414243 light:border-hex-E5E7EB>
     <div class="header" flex="~ row" h-full items-center justify-between>
       <div class="header-left" flex="~ row" h-full items-center justify-between>
         <el-menu mode="horizontal" :ellipsis-icon="h(SvgIcon, { name: 'carbon:menu', size: '1.5em' })">
